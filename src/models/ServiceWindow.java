@@ -2,6 +2,7 @@ package models;
 
 public class ServiceWindow extends Thread{
 
+    private int count;
     private User user;
     private boolean available;
     private boolean isLive;
@@ -11,6 +12,11 @@ public class ServiceWindow extends Thread{
         this.user = null;
         this.available = true;
         this.isLive = true;
+        this.count = 0;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     @Override
@@ -24,9 +30,8 @@ public class ServiceWindow extends Thread{
                 e.printStackTrace();
             }
             if (user != null){
-                System.out.println("THREAD: "+getName()+ "----------------------------------");
-                System.out.println("Attend: "+user.getName()+"-"+user.getRequestType());
-                System.out.println("-------------------------------------------------");
+                count++;
+                System.out.println("THREAD: - - "+getName()+" Attend: "+user.getName()+"-"+user.getRequestType());
                 setUser(null);
             }
             setAvailable(true);

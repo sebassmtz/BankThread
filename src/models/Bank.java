@@ -2,9 +2,20 @@ package models;
 
 import structures.queue.Queue;
 
+import java.util.Iterator;
+
 public class Bank {
     private UserQueue userQueue;
     private ServiceWindow[] serviceWindows;
+    private int count = 0,countQueu = 0;
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getCountQueu() {
+        return countQueu;
+    }
 
     public Bank(int numberWindows, long time) {
         this.serviceWindows = new ServiceWindow[numberWindows];
@@ -12,6 +23,10 @@ public class Bank {
         userQueue.start();
         createWindows();
         attendPatients();
+    }
+
+    public int totalUsers(){
+        return userQueue.getCountUser();
     }
 
     public void createWindows(){
@@ -46,8 +61,21 @@ public class Bank {
 //                System.out.println("user-->"+user.getName()+"-"+user.getRequestType());
             }
         }
-        for (int i = 0; i < serviceWindows.length; i++) {
-            serviceWindows[i].setLive(false);
+        for (ServiceWindow serviceWindow : serviceWindows) {
+            serviceWindow.setLive(false);
+        }
+        for (ServiceWindow serviceWindow : serviceWindows) {
+            while (serviceWindow.isAlive()){
+            }
+            count += serviceWindow.getCount();
+        }
+        int count1 = 0;
+//        Iterator<User> ok = userQueue.getUsers().iterator();
+        while (!userQueue.getUsers().isEmpty()){
+            userQueue.getUserQueue();
+//            User chet= ok.next();
+//            System.out.println("Sobraron:" + chet.getName());
+            countQueu++;
         }
     }
 
