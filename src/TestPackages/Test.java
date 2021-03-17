@@ -6,8 +6,9 @@ import java.util.Random;
 
 public class Test {
     public static void main(String[] args) {
-        Bank bank = new Bank(4,60000);
-        bank.put();
+        Bank bank = new Bank(1,10000);
+//        bank.put();
+        //(x,y)->x.getName().compareTo(y.getName)lambda
     }
 }
 
