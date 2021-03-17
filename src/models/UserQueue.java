@@ -58,4 +58,8 @@ public class UserQueue extends Thread{
     private RequestType getRandomRequest(int size){
         return requestTypes[rnd.nextInt(size)];
     }
+
+    public User getUserQueue(){
+        return users.poll();
+    }
 }
