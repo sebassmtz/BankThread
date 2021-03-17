@@ -31,7 +31,7 @@ public class UserQueue extends Thread{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(user.getName()+"-"+user.getId()+"-"+user.getRequestType());
+//            System.out.println(user.getName()+"-"+user.getId()+"-"+user.getRequestType());
         }
     }
 
@@ -40,7 +40,7 @@ public class UserQueue extends Thread{
     }
 
     private User createRandomUser(){
-        return new User(generateRandomCode(),String.valueOf(rnd.nextInt(10000)),getRandomrequest(4));
+        return new User(generateRandomCode(),String.valueOf(rnd.nextInt(10000)),getRandomRequest(4));
     }
 
     private String generateRandomCode(){
@@ -55,7 +55,7 @@ public class UserQueue extends Thread{
         return code;
     }
 
-    private RequestType getRandomrequest(int size){
+    private RequestType getRandomRequest(int size){
         return requestTypes[rnd.nextInt(size)];
     }
 }
