@@ -9,10 +9,12 @@ public class UserQueue extends Thread{
     private Random rnd = new Random();
     private Queue<User> users;
     private long time;
+    private RequestType[] requestTypes;
 
     public UserQueue(long time) {
         this.users = new Queue<>(User::compare);
         this.time = time;
+        this.requestTypes = RequestType.values();
     }
 
     @Override
@@ -29,7 +31,7 @@ public class UserQueue extends Thread{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(user.getName()+"-"+user.getId());
+            System.out.println(user.getName()+"-"+user.getId()+"-"+user.getRequestType());
         }
     }
 
@@ -38,7 +40,7 @@ public class UserQueue extends Thread{
     }
 
     private User createRandomUser(){
-        return new User(generateRandomCode(),String.valueOf(rnd.nextInt(10000)),RequestType.DEPOSIT);
+        return new User(generateRandomCode(),String.valueOf(rnd.nextInt(10000)),getRandomrequest(4));
     }
 
     private String generateRandomCode(){
@@ -51,5 +53,9 @@ public class UserQueue extends Thread{
             }
         }
         return code;
+    }
+
+    private RequestType getRandomrequest(int size){
+        return requestTypes[rnd.nextInt(size)];
     }
 }
