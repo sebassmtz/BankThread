@@ -6,16 +6,13 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class UserQueue extends Thread{
+    private Random rnd = new Random();
     private Queue<User> users;
     private long time;
-    private RequestType[] requestTypes;
-    private Random random;
 
     public UserQueue(long time) {
         this.users = new Queue<>(User::compare);
         this.time = time;
-        random = new Random();
-        requestTypes = RequestType.values();
     }
 
     @Override
@@ -32,7 +29,7 @@ public class UserQueue extends Thread{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(user.getName()+"-"+user.getId()+"-"+user.getRequestType());
+            System.out.println(user.getName()+"-"+user.getId());
         }
     }
 
@@ -41,10 +38,18 @@ public class UserQueue extends Thread{
     }
 
     private User createRandomUser(){
-        return new User("",String.valueOf(random.nextInt(10000)),generateRequest(4));
+        return new User(generateRandomCode(),String.valueOf(rnd.nextInt(10000)),RequestType.DEPOSIT);
     }
 
-    private RequestType generateRequest(int size){
-        return requestTypes[random.nextInt(size)];
+    private String generateRandomCode(){
+        String code = "";
+        for (int i = 0; i < 7; i++) {
+            if (i < 4){
+                code += (char) (rnd.nextInt(25) + 65);
+            }else{
+                code += (char) (rnd.nextInt(25) + 97);
+            }
+        }
+        return code;
     }
 }

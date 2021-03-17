@@ -11,4 +11,5 @@ public class Bank {
         this.userQueue = new UserQueue(time);
         userQueue.run();
     }
+
 }
