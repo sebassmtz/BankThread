@@ -35,4 +35,8 @@ public class User {
     public void setRequestType(RequestType requestType) {
         this.requestType = requestType;
     }
+
+    public int compare(User user){
+        return this.id.compareTo(user.getId());
+    }
 }

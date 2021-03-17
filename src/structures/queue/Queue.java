@@ -7,9 +7,9 @@ import java.util.Iterator;
 
 public class Queue<T> {
     private Node<T> head;
-    private Comparator comparator;
+    private Comparator<T> comparator;
 
-    public Queue(Comparator comparator) {
+    public Queue(Comparator<T> comparator) {
         this.comparator = comparator;
     }
 
