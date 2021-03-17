@@ -3,26 +3,26 @@ package models;
 import structures.queue.Queue;
 
 public class Bank {
+    private final long time;
     private UserQueue userQueue;
     private ServiceWindow[] serviceWindows;
 
-    public Bank(int numberWindows, long time) {
+    public Bank(int numberWindows, long time) throws InterruptedException {
         this.serviceWindows = new ServiceWindow[numberWindows];
-        this.userQueue = new UserQueue(time);
+        this.time = time;
+        userQueue = new UserQueue(time);
         userQueue.start();
+        createWindows();
     }
 
-    public void put(){
+    public void createWindows() throws InterruptedException {
         int size = serviceWindows.length;
         for (int i = 0; i < size; i++) {
-            serviceWindows[i] = new ServiceWindow("Hilo"+i);
+            serviceWindows[i] = new ServiceWindow("Hilo"+(i+1));
             serviceWindows[i].start();
-            if (serviceWindows[i].isAvailable()){
-                serviceWindows[i].setUser(userQueue.getUserQueue());
-
-                System.out.println("-"+ serviceWindows[i].getUser().getName());
-            }
+            System.out.println(serviceWindows[i].getName());
         }
     }
+
 
 }

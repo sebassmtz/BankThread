@@ -1,49 +1,43 @@
 package models;
 
+
 public class ServiceWindow extends Thread{
 
-    private User user;
-    private boolean available = true;
+    User user;
+    private int count;
+    boolean alive = true;
 
     public ServiceWindow(String name) {
         super(name);
-     this.user = null;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public User getUser() {
-        return user;
     }
 
     @Override
     public void run() {
         try {
-            sleep(calculateTimeSleep());
+            sleep(calculateTimeSleep(user));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        available = true;
+        count++;
+        System.out.println("Durmio:"+ getName());
+        System.out.println("Consumio " + user.getName());
     }
 
     public void setUser(User user) {
-        available = false;
         this.user = user;
     }
 
-    private long calculateTimeSleep(){
-        if (user != null){
+    public int getCount() {
+        return count;
+    }
+
+    private long calculateTimeSleep(User user){
             switch (user.getRequestType()){
                 case LOAN: return 2000;
-                case DEPOSIT: return 500;
+                case DEPOSIT: return 1000;
                 case OTHER_SERVICE: return 5000;
                 case TRANSACTION: return 3500;
                 default: return 0;
             }
-        }else{
-            return 0;
-        }
     }
 }

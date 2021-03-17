@@ -22,16 +22,16 @@ public class UserQueue extends Thread{
         boolean isActive = true;
         long count = 0;
         while (isActive){
-            User user = createRandomUser();
-            users.push(user);
-            isActive = (count != time);
-            count += 1000;
             try {
                 sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-//            System.out.println(user.getName()+"-"+user.getId()+"-"+user.getRequestType());
+            User user = createRandomUser();
+            users.push(user);
+            isActive = (count != time);
+            count += 1000;
+            System.out.println("Entra: " + user.getName()+"-"+user.getId()+"-"+user.getRequestType());
         }
     }
 
@@ -57,6 +57,10 @@ public class UserQueue extends Thread{
 
     private RequestType getRandomRequest(int size){
         return requestTypes[rnd.nextInt(size)];
+    }
+
+    public Queue<User> getUsers() {
+        return users;
     }
 
     public User getUserQueue(){
