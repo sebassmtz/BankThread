@@ -3,14 +3,19 @@ package models;
 import structures.queue.Queue;
 
 import java.util.Iterator;
+import java.util.Random;
 
 public class UserQueue extends Thread{
     private Queue<User> users;
     private long time;
+    private RequestType[] requestTypes;
+    private Random random;
 
     public UserQueue(long time) {
         this.users = new Queue<>(User::compare);
         this.time = time;
+        random = new Random();
+        requestTypes = RequestType.values();
     }
 
     @Override
@@ -18,7 +23,7 @@ public class UserQueue extends Thread{
         boolean isActive = true;
         long count = 0;
         while (isActive){
-            User user = new User("A","1",RequestType.DEPOSIT);
+            User user = createRandomUser();
             users.push(user);
             isActive = (count != time);
             count += 1000;
@@ -27,12 +32,7 @@ public class UserQueue extends Thread{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(user.getName()+"-"+user.getId());
-        }
-        Iterator<User> iterator = users.iterator();
-        while (iterator.hasNext()){
-            User user = iterator.next();
-//            System.out.println(user.getName()+"-"+user.getId());
+            System.out.println(user.getName()+"-"+user.getId()+"-"+user.getRequestType());
         }
     }
 
@@ -41,6 +41,10 @@ public class UserQueue extends Thread{
     }
 
     private User createRandomUser(){
-        return new User("","",RequestType.DEPOSIT);
+        return new User("",String.valueOf(random.nextInt(10000)),generateRequest(4));
+    }
+
+    private RequestType generateRequest(int size){
+        return requestTypes[random.nextInt(size)];
     }
 }
