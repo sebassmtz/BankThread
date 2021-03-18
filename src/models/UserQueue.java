@@ -33,7 +33,7 @@ public class UserQueue extends Thread{
         long count = 0;
         while (isActive){
             try {
-                sleep(100);
+                sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -41,7 +41,7 @@ public class UserQueue extends Thread{
             users.push(user);
             countUser++;
             isActive = (count != time);
-            count += 100;
+            count += 1000;
             System.out.println("Entra: "+user.getName()+"-"+user.getId()+"-"+user.getRequestType());
         }
     }
