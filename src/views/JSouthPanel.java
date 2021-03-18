@@ -2,6 +2,7 @@ package views;
 
 import controllers.Command;
 import views.models.JModelButton;
+import views.models.JModelProgressBar;
 import views.models.JModelTextField;
 
 import javax.swing.*;
@@ -11,40 +12,20 @@ import java.awt.event.ActionListener;
 
 public class JSouthPanel extends JPanel {
 
-    private JModelButton jButtonInitial;
-    private JModelTextField jTFTime;
-    private JSpinner jsValue;
+    private JModelProgressBar jProgressBar;
 
     public JSouthPanel(ActionListener actionListener) {
-        this.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
-        this.setLayout(new FlowLayout(FlowLayout.CENTER));
-        this.setBackground(Constant.COLOR_BLUE_LIGHT_G);
+        this.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
         initComponents(actionListener);
     }
 
     private void initComponents(ActionListener actionListener) {
-
-        jTFTime = new JModelTextField("Time","Login Time",Constant.FONT_ARIAL_ROUNDER_15,Constant.COLOR_WHITE);
-        jTFTime.validateNum(jTFTime);
-        this.add(jTFTime);
-
-
-
-        jsValue = new JSpinner(new SpinnerNumberModel(2, 1,8, 1));
-        ((DefaultFormatter) ((JSpinner.NumberEditor)jsValue.getEditor()).getTextField().getFormatter()).setAllowsInvalid(false);
-        jsValue.setBorder(BorderFactory.createTitledBorder("Windows"));
-        jsValue.setPreferredSize(new Dimension(80,40));
-        jsValue.setBackground(Constant.COLOR_WHITE);
-        this.add(jsValue);
-
-        jButtonInitial = new JModelButton("Iniciar ",Constant.IMG_REFRESH,25,25,Constant.COLOR_WHITE,Constant.COLOR_BLACK);
-        jButtonInitial.setActionCommand(Command.INIT_SIMULATION.toString());
-        jButtonInitial.addActionListener(actionListener);
-        this.add(jButtonInitial);
+        jProgressBar = new JModelProgressBar(0,675,50,Constant.C_MIDNIGHT_BLUE,Constant.COLOR_RED_LIGHT,actionListener);
+        this.add(jProgressBar);
     }
 
-
-    public Object[] getValues(){
-        return new Object[]{jTFTime.getText(),jsValue.getValue()};
+    public void status(long time){
+        jProgressBar.actionP(jProgressBar,time);
     }
+
 }

@@ -22,6 +22,14 @@ public class JMainWindows extends JFrame {
         this.getContentPane().add(jMainPanel);
     }
 
+    public void setLabels(Object[] counts){
+        jMainPanel.setLabels(counts);
+    }
+
+    public void status(long time){
+        jMainPanel.status(time);
+    }
+
     public Object[] getValues(){
         return jMainPanel.getValues();
     }

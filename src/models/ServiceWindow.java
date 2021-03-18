@@ -21,7 +21,6 @@ public class ServiceWindow extends Thread{
 
     @Override
     public void run() {
-//        System.out.println("Run "+this.getName() + " available: "+available);
         while (isLive){
             setAvailable(false);
             try {

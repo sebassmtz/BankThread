@@ -44,6 +44,7 @@ public class UserQueue extends Thread{
             count += 1000;
             System.out.println("Entra: "+user.getName()+"-"+user.getId()+"-"+user.getRequestType());
         }
+
     }
 
     private User createRandomUser(){

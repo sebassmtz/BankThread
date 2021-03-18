@@ -39,8 +39,8 @@ public class JModelLabel extends JLabel{
 		ImageIcon imagen = new ImageIcon(getClass().getResource(imgPath));
 		Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
 		this.setIcon(icon);
-		this.setHorizontalTextPosition( SwingConstants.CENTER );
-		this.setVerticalTextPosition( SwingConstants.BOTTOM );
+		this.setHorizontalTextPosition( SwingConstants.RIGHT );
+		this.setVerticalTextPosition( SwingConstants.CENTER );
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		this.setFont(font);
 		this.setBackground(bg);

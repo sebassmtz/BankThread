@@ -9,14 +9,28 @@ public class Bank {
     private UserQueue userQueue;
     private ServiceWindow[] serviceWindows;
     private int[] conts;
+    private double totalTime;
 
     public Bank(int numberWindows, long time) {
         this.serviceWindows = new ServiceWindow[numberWindows];
         this.userQueue = new UserQueue(time);
+        totalTime = 0.0;
+        initComponents();
+    }
+
+    public double getTotalTime() {
+        return totalTime;
+    }
+
+    public void initComponents(){
+        long start = System.currentTimeMillis();
         userQueue.start();
         createWindows();
         attendPatients();
         conts = countVariables();
+        long end = System.currentTimeMillis() - start;
+        totalTime = (double)end/1000;
+        System.out.println("Tiempo total: "+(double) end/1000);
     }
 
     public int[] getConts() {
